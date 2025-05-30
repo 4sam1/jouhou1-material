@@ -3,126 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>高校 情報Ⅰ 補助教材サイト - QRコードのしくみ</title>
+  <title>高校 情報Ⅰ 補助教材サイト</title>
   <style>
     body {
       font-family: sans-serif;
       margin: 0;
       padding: 0;
-    }
-    .site-header {
-      background: linear-gradient(to right, #8de0e8, #1e57a3);
-      color: white;
-      padding: 1rem;
-    }
-    .header-title {
-      font-size: 1.3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .note {
-      font-size: 0.9rem;
-    }
-    .breadcrumb {
-      font-size: 0.9rem;
-      margin: 1rem;
+      background: #f9f9f9;
       color: #333;
     }
-    .main-headline {
+    header {
+      background: linear-gradient(to right, #8de0e8, #1e57a3);
+      color: white;
+      padding: 1.5rem;
       text-align: center;
-      font-size: 1.5rem;
-      font-weight: bold;
-      margin: 1rem;
     }
-    .content-section {
-      padding: 1rem 2rem;
+    main {
       max-width: 800px;
-      margin: 0 auto;
+      margin: 2rem auto;
+      padding: 1rem;
     }
-    h2 {
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+    }
+    .category {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      padding: 1rem;
+      margin-bottom: 2rem;
+    }
+    .category h2 {
       color: #1e57a3;
-      margin-top: 2rem;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
     }
     ul {
-      padding-left: 1.2rem;
+      list-style: none;
+      padding-left: 0;
     }
-    textarea {
-      width: 100%;
-      height: 100px;
-    }
-    .output {
-      background: #f4f4f4;
-      padding: 1rem;
-      white-space: pre-wrap;
-      border: 1px solid #ccc;
-      margin-top: 1rem;
+    li {
+      margin: 0.3rem 0;
     }
     a {
-      color: #1e57a3;
+      text-decoration: none;
+      color: #0066cc;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 2rem;
     }
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="header-title">
-      高校 情報Ⅰ 補助教材サイト
-      <span class="note">QRコードのしくみ</span>
-    </div>
+  <header>
+    <h1>高校 情報Ⅰ 補助教材サイト</h1>
+    <p>ジャンルごとの補助教材にアクセスできます</p>
   </header>
-
-  <div class="breadcrumb">ネットワークとデータの活用 > QRコードのしくみ</div>
-  <div class="main-headline">QRコードの仕組みをやさしく理解しましょう</div>
-
-  <div class="content-section">
-    <h2>Step 1：QRコードとは？</h2>
-    <p>「QR」は Quick Response（すばやく反応する）の略で、スマートフォンで読み取るとURLや情報がすぐに表示される便利な技術です。日本で開発され、買い物やチケットなどさまざまな場面で使われています。</p>
-
-    <h2>Step 2：文字を数字や記号に変換します</h2>
-    <p>QRコードの中には文字がそのまま入っているのではなく、文字は数字（コード）に変換されて格納されています。</p>
-    <ul>
-      <li>A → 65 → 01000001</li>
-      <li>情 → 24863 → 01100000 11111111</li>
-    </ul>
-
-    <h2>Step 3：白と黒のマスに変換して並べます</h2>
-    <p>0と1で表されたバイナリの情報を、白（0）と黒（1）のマスに置き換えて順番に並べることで、あのQRコードの形になります。</p>
-
-    <h2>Step 4：向きを見つけるしくみがあります</h2>
-    <p>三つの角にある大きな四角は「位置検出パターン」と呼ばれ、QRコードの向きがどの方向でも正しく読み取れるようになっています。</p>
-
-    <h2>Step 5：一部が欠けても読めるしくみがあります</h2>
-    <p>QRコードは最大30%が破損していても読み取れるようになっています。これは「Reed-Solomon符号」と呼ばれる誤り訂正の技術によって実現されています。</p>
-
-    <h2>Step 6：実際に体験してみましょう</h2>
-    <p>以下の欄に文字を入力すると、それぞれの文字がどのような2進数（バイナリ）に変換されるのかを確認することができます。</p>
-    <label for="inputText">変換する文字：</label><br>
-    <textarea id="inputText" placeholder="例：情報"></textarea><br>
-    <button onclick="convertToBinary()">バイナリに変換</button>
-    <div class="output" id="binaryOutput"></div>
-
-    <h2>おすすめの学習方法</h2>
-    <ul>
-      <li>自分の名前でQRコードを作成してみましょう（<a href="https://www.qr-code-generator.com/" target="_blank">生成サイト</a>）</li>
-      <li>スマートフォンでQRコードを読み取り、正しく表示されるか確認しましょう</li>
-      <li>一部を塗りつぶしても読み取れるか実験してみましょう</li>
-    </ul>
-
-    <h2>もっと詳しく知りたい方へ</h2>
-    <p><a href="https://nlab.itmedia.co.jp/nl/articles/1801/31/news008.html" target="_blank">ITmediaの解説記事</a>では、QRコードの仕組みを手作業で再現する様子が紹介されています。より深く学びたい方におすすめです。</p>
-  </div>
-
-  <script>
-    function convertToBinary() {
-      const text = document.getElementById("inputText").value;
-      let binaryStr = "";
-      for (let i = 0; i < text.length; i++) {
-        const code = text.charCodeAt(i).toString(2).padStart(8, '0');
-        binaryStr += `${text[i]} → ${code}\n`;
-      }
-      document.getElementById("binaryOutput").textContent = binaryStr;
-    }
-  </script>
-</body>
-</html>
+  <main>
+    <div class="category">
+      <h2>情報社会と問題解決</h2>
+      <ul>
+        <li><a href="society1.html">① 情報社会と問題解決 1</a></li>
+        <li><a href="society2.html">② 情報社会と問題解決 2</a></li>
+        <li><a href="society3.html">③ 情報社会と問題解決 3</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <h2>コミュニケーションと情報デザイン</h2>
+      <ul>
+        <li><a href="design1.html">① 情報デザイン 1</a></li>
+        <li><a href="design2.html">② 情報デザイン 2</a></li>
+        <li><a href="design3.html">③ 情報デザイン 3</a></li>
+      </ul>
+    </div>
+    <div class="category">
+      <h2>コンピュータとプログラミング</h2>
+      <ul>
+        <li><a href="program1.html">① プログラミング 1<
