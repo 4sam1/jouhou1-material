@@ -47,6 +47,9 @@
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
+    h2 {
+      color: #1e57a3;
+    }
     footer {
       text-align: center;
       font-size: 0.9rem;
@@ -73,6 +76,7 @@
   </header>
 
   <nav>
+    <a href="index.html">トップ</a>
     <a href="society1.html">情報社会</a>
     <a href="design1.html">情報デザイン</a>
     <a href="program1.html">プログラミング</a>
@@ -86,28 +90,35 @@
   </div>
 
   <main>
-    <h2>QRコードはどのように情報を伝えているの？</h2>
-    <p>QRコードは、Quick Response（すばやく反応する）の略で、スマートフォンで読み取ると情報が瞬時に表示される便利なコードです。商品、広告、チケットなど、様々な場面で使われています。</p>
+    <h2>1. QRコードとは</h2>
+    <p>QRコードとは「Quick Response」の略で、情報を高速に読み取れる2次元コードです。商品、Webリンク、チケットなど幅広い用途に活用されています。</p>
 
-    <h3>1. 文字をバイナリに変換</h3>
-    <p>QRコードの中では、文字を2進数（バイナリ）に変換して情報を記録します。以下で試してみましょう：</p>
-    <textarea id="inputText" placeholder="例：情報"></textarea>
+    <h2>2. QRコードの構造</h2>
+    <ul>
+      <li><strong>位置検出パターン：</strong> 3つの角にある大きな黒枠で、コードの向きを認識します。</li>
+      <li><strong>タイミングパターン：</strong> 行・列の間隔を把握するための模様です。</li>
+      <li><strong>アライメントパターン：</strong> 歪みを補正するためのマークで、コードが大きくなるほど増加します。</li>
+      <li><strong>データ領域：</strong> 実際の情報が2進数で記録されている部分です。</li>
+      <li><strong>フォーマット情報：</strong> 誤り訂正やマスクパターンに関する情報です。</li>
+    </ul>
+
+    <h2>3. 誤り訂正のしくみ</h2>
+    <p>QRコードはReed-Solomon符号により、最大30%までの破損があっても復元できます。これにより、多少汚れていたり欠けていても読み取りが可能です。</p>
+
+    <h2>4. 情報はどう入っている？</h2>
+    <p>QRコードでは、文字情報を数値化し、2進数（バイナリ）に変換して記録します。以下のツールで試してみましょう。</p>
+    <textarea id="inputText" placeholder="文字を入力してください（例：情報）"></textarea>
     <button onclick="convertToBinary()">バイナリに変換</button>
     <div class="output" id="binaryOutput"></div>
 
-    <h3>2. マス目でデータを表す</h3>
-    <p>変換されたバイナリ情報は、白と黒のマス目で視覚的に表現されます。黒＝1、白＝0と考えて構成され、正しい順番で配置されています。</p>
+    <h2>5. 実際の構造を観察しよう</h2>
+    <p>実際のQRコードを観察し、黒白のマス、位置検出、アライメントパターンなどを見つけてみましょう。</p>
 
-    <h3>3. 誤り訂正機能</h3>
-    <p>QRコードは、一部が汚れたり破れても読み取れるように、誤り訂正の仕組み（Reed-Solomon符号）を持っています。最大30%までの破損に耐えられるのが特徴です。</p>
-
-    <h3>4. 向きを認識する仕組み</h3>
-    <p>QRコードの三隅にある大きな黒枠（位置検出パターン）で、どの向きでも正しく読み取れるようになっています。</p>
-
-    <h3>もっと知りたい方へ</h3>
-    <p>
-      → <a href="https://nlab.itmedia.co.jp/nl/articles/1801/31/news008.html" target="_blank">ITmediaの解説記事</a>も参考にしてみましょう。
-    </p>
+    <h2>6. もっと知りたい方へ</h2>
+    <ul>
+      <li><a href="https://nlab.itmedia.co.jp/nl/articles/1801/31/news008.html" target="_blank">ITmediaの解説記事</a></li>
+      <li><a href="https://youtu.be/PTLLwlL9zF8?si=7uYEMk0M7KkAgj3t" target="_blank">YouTube動画で学ぶQRコード</a></li>
+    </ul>
   </main>
 
   <footer>
