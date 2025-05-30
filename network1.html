@@ -46,6 +46,7 @@
       background: white;
       border-radius: 8px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      line-height: 1.8;
     }
     h2 {
       color: #1e57a3;
@@ -67,6 +68,19 @@
       margin-top: 1rem;
       border: 1px solid #ccc;
       white-space: pre-wrap;
+    }
+    .example-box {
+      background: #f4fbff;
+      border: 1px solid #a7d6f5;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+    }
+    .example-box pre {
+      background: #fff;
+      padding: 0.5rem;
+      border: 1px dashed #ccc;
+      overflow-x: auto;
     }
   </style>
 </head>
@@ -91,33 +105,58 @@
 
   <main>
     <h2>1. QRコードとは</h2>
-    <p>QRコードとは「Quick Response」の略で、情報を高速に読み取れる2次元コードです。商品、Webリンク、チケットなど幅広い用途に活用されています。</p>
+    <p>QRコードは「Quick Response」の略で、情報を高速に読み取れる2次元コードです。商品や広告、チケットなどさまざまな場面で使われています。</p>
 
-    <h2>2. QRコードの構造</h2>
+    <h2>2. QRコードの歴史と利用例</h2>
+    <p>1994年に日本の企業によって開発されたQRコードは、当初は部品の管理などに利用されていました。現在では決済やURL共有など、日常生活に広く浸透しています。</p>
+
+    <h2>3. QRコードの構造</h2>
     <ul>
-      <li><strong>位置検出パターン：</strong> 3つの角にある大きな黒枠で、コードの向きを認識します。</li>
-      <li><strong>タイミングパターン：</strong> 行・列の間隔を把握するための模様です。</li>
-      <li><strong>アライメントパターン：</strong> 歪みを補正するためのマークで、コードが大きくなるほど増加します。</li>
-      <li><strong>データ領域：</strong> 実際の情報が2進数で記録されている部分です。</li>
-      <li><strong>フォーマット情報：</strong> 誤り訂正やマスクパターンに関する情報です。</li>
+      <li><strong>位置検出パターン：</strong> 向きを判定する3つの大きな黒枠</li>
+      <li><strong>タイミングパターン：</strong> マスの間隔を測るための線</li>
+      <li><strong>アライメントパターン：</strong> 歪みを補正するためのパターン</li>
+      <li><strong>データ領域：</strong> 実際の情報が記録されている部分</li>
+      <li><strong>フォーマット情報：</strong> 誤り訂正レベルなどの設定情報</li>
     </ul>
 
-    <h2>3. 誤り訂正のしくみ</h2>
-    <p>QRコードはReed-Solomon符号により、最大30%までの破損があっても復元できます。これにより、多少汚れていたり欠けていても読み取りが可能です。</p>
+    <h2>4. 誤り訂正の仕組み</h2>
+    <p>QRコードはReed-Solomon符号という技術により、最大30%までの破損にも耐えられる仕組みを持っています。これにより一部が隠れていても読み取り可能です。</p>
 
-    <h2>4. 情報はどう入っている？</h2>
-    <p>QRコードでは、文字情報を数値化し、2進数（バイナリ）に変換して記録します。以下のツールで試してみましょう。</p>
+    <h2>5. 文字をバイナリに変換してみよう</h2>
+    <p>QRコードでは文字を2進数（バイナリ）に変換し、白と黒のマスで表現します。以下で変換を試してみましょう。</p>
     <textarea id="inputText" placeholder="文字を入力してください（例：情報）"></textarea>
     <button onclick="convertToBinary()">バイナリに変換</button>
     <div class="output" id="binaryOutput"></div>
 
-    <h2>5. 実際の構造を観察しよう</h2>
-    <p>実際のQRコードを観察し、黒白のマス、位置検出、アライメントパターンなどを見つけてみましょう。</p>
+    <h2>6. バイナリを目で読む？</h2>
+    <p>QRコードは黒（1）と白（0）のマスを右下から読み取ることで、情報を表しています。これはまさに“目に見えるバイナリ”です。</p>
 
-    <h2>6. もっと知りたい方へ</h2>
+    <div class="example-box">
+      <h3>【例】文字「A」はこうなる！</h3>
+      <p>「A」はバイナリで次のように表されます：</p>
+      <pre>A → 01000001</pre>
+      <p>これをマスに並べると、縦に読むと以下のようになります：</p>
+      <pre>
+白（0）
+黒（1）
+白（0）
+白（0）
+白（0）
+白（0）
+白（0）
+黒（1）
+      </pre>
+      <p>このように、情報は黒白のパターンとして表現されます。</p>
+    </div>
+
+    <h2>7. QRコードでアクセスしてみよう</h2>
+    <p>以下のQRコードを読み取るとこのページにアクセスできます。</p>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://4sam1.github.io/jouhou1-material/network1.html" alt="QRコードでこのページにアクセス" class="qrcode-image">
+
+    <h2>8. さらに学びたい方へ</h2>
     <ul>
-      <li><a href="https://nlab.itmedia.co.jp/nl/articles/1801/31/news008.html" target="_blank">ITmediaの解説記事</a></li>
-      <li><a href="https://youtu.be/PTLLwlL9zF8?si=7uYEMk0M7KkAgj3t" target="_blank">YouTube動画で学ぶQRコード</a></li>
+      <li><a href="https://nlab.itmedia.co.jp/nl/articles/1801/31/news008.html" target="_blank">ITmedia解説記事</a></li>
+      <li><a href="https://youtu.be/PTLLwlL9zF8?si=7uYEMk0M7KkAgj3t" target="_blank">YouTubeで学ぶQRコードの仕組み</a></li>
     </ul>
   </main>
 
