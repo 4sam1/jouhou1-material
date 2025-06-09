@@ -1,85 +1,26 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>プログラミング 3</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f9f9f9;
-    }
-    header {
-      background: linear-gradient(to right, #8de0e8, #1e57a3);
-      color: white;
-      padding: 1rem 2rem;
-      text-align: center;
-    }
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      background: #e6f2f5;
-      padding: 0.5rem 0;
-      flex-wrap: wrap;
-    }
-    nav a {
-      text-decoration: none;
-      color: #1e57a3;
-      font-weight: bold;
-    }
-    .subnav {
-      text-align: center;
-      margin-top: 1rem;
-    }
-    .subnav a {
-      margin: 0 0.5rem;
-      text-decoration: none;
-      color: #444;
-    }
-    main {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    footer {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #666;
-      margin: 2rem 0;
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <h1>プログラミング 3</h1>
-  </header>
+<main>
+  <h2>感染モデルのシミュレーション</h2>
+  <p>今回は、感染症の広がり方を数理モデルで表現する「SIRモデル」を使って、コンピュータでシミュレーションを行います。</p>
 
-  <nav>
-    <a href="society1.html">情報社会</a>
-    <a href="design1.html">情報デザイン</a>
-    <a href="program1.html">プログラミング</a>
-    <a href="network1.html">ネットワーク</a>
-  </nav>
+  <h3>■ 学習目標</h3>
+  <ul>
+    <li>感染症の流行を予測するためのモデル（SIRモデル）を理解する</li>
+    <li>ワクチン接種の有無による感染拡大の違いを可視化する</li>
+    <li>簡単なプログラムを使って実験・考察する</li>
+  </ul>
 
-  <div class="subnav">
-    <a href="program1.html">①</a>
-    <a href="program2.html">②</a>
-    <a href="program3.html">③</a>
-  </div>
+  <h3>■ 活動内容</h3>
+  <ol>
+    <li>SIRモデルの仕組み（S：感受性者、I：感染者、R：回復者）を学ぶ</li>
+    <li>初期値や感染率を変えてグラフを描く（Python or ブラウザ上のHTML）</li>
+    <li>ワクチン接種あり・なしの比較シミュレーションを実行</li>
+    <li>結果から考察を行う（どの程度の接種率で感染拡大を抑えられるか？）</li>
+  </ol>
 
-  <main>
-    <h2>このページは仮ページです</h2>
-    <p>ここに「プログラミング」の第3回目の内容を記載します。後で本内容を入れる予定です。</p>
-  </main>
+  <h3>■ シミュレーション例</h3>
+  <p>以下のリンク先で、ブラウザ上でシミュレーションを体験できます。</p>
+  <p><a href="sir_simulation.html" target="_blank">▶ 感染症シミュレーションを開く</a></p>
 
-  <footer>
-    <a href="index.html">トップページに戻る</a>
-  </footer>
-</body>
-</html>
+  <h3>■ 振り返り</h3>
+  <p>シミュレーションの結果をもとに、ワクチンの効果や、感染症の対策について考えましょう。</p>
+</main>
