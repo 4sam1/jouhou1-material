@@ -111,58 +111,14 @@
     <h2>感染モデルのシミュレーション</h2>
     <p>身のまわりの事象をモデルとして捉えることで、複雑な現象をシンプルに理解したり予測したりすることができます。今回は、感染症の広がりを「SIRモデル」という数理モデルで表し、プログラミングによってシミュレーションを行います。</p>
 
-    <h3>■ PythonでSIRモデルを書いてみよう</h3>
-    <p>以下は、感染症の広がりをシミュレーションするSIRモデルのPythonコードです。</p>
-    <pre><code>import numpy as np
-import matplotlib.pyplot as plt
-
-# パラメータ設定
-N = 1000        # 総人口
-I0, R0, V = 1, 0, 300
-S0 = N - I0 - R0 - V
-beta = 0.3      # 感染率
-gamma = 0.1     # 回復率
-
-# シミュレーション日数
-days = 160
-t = np.linspace(0, days, days)
-
-# SIRモデルの初期リスト
-S, I, R = [S0], [I0], [V]
-
-# シミュレーション実行
-for _ in range(1, days):
-    next_S = S[-1] - beta * S[-1] * I[-1] / N
-    next_I = I[-1] + beta * S[-1] * I[-1] / N - gamma * I[-1]
-    next_R = R[-1] + gamma * I[-1]
-    S.append(next_S)
-    I.append(next_I)
-    R.append(next_R)
-
-# グラフ表示
-plt.plot(t, S, label='Susceptible')
-plt.plot(t, I, label='Infected')
-plt.plot(t, R, label='Recovered')
-plt.xlabel('Days')
-plt.ylabel('Number of people')
-plt.legend()
-plt.title('SIR Epidemic Model')
-plt.show()</code></pre>
-
-    <h3>■ Pythonコードの解説</h3>
+    <h3>■ SIRモデルとは？</h3>
     <ul>
-      <li><code>N</code>：総人口。シミュレーション対象の人数です。</li>
-      <li><code>I0</code>：初期の感染者数。</li>
-      <li><code>V</code>：最初からワクチン接種済みで免疫を持っている人数。</li>
-      <li><code>beta</code>：感染率（1人が何人にうつすかの平均）</li>
-      <li><code>gamma</code>：回復率（1日にどれくらいの割合が回復するか）</li>
-      <li><code>S, I, R</code>：それぞれの日の感受性者・感染者・回復者の人数を記録</li>
-      <li>ループ内では、1日ごとの人数の変化を計算していきます。</li>
+      <li><strong>S（感受性者）</strong>：まだ感染していない人</li>
+      <li><strong>I（感染者）</strong>：現在感染している人</li>
+      <li><strong>R（回復者/免疫者）</strong>：感染後に回復した人、またはワクチン接種済みの人</li>
     </ul>
 
-    <h3>■ サイトで体験してみよう</h3>
-    <p>下のフォームで、<strong>人口・感染率・回復率・ワクチン接種数</strong>を変更して、グラフの変化を確認してみましょう。</p>
-
+    <h3>■ パラメータを設定</h3>
     <label>人口（N）:</label>
     <input type="number" id="population" value="1000">
     <label>初期感染者（I₀）:</label>
@@ -177,6 +133,38 @@ plt.show()</code></pre>
 
     <h3>■ 結果のグラフ</h3>
     <div id="plot" style="width:100%;height:500px;"></div>
+
+    <h3>■ Pythonで書いてみよう</h3>
+    <p>以下のPythonコードでも同様のシミュレーションが可能です。サイトで動作を確認した後、自分でも書いてみましょう。</p>
+    <pre><code>import numpy as np
+import matplotlib.pyplot as plt
+
+N = 1000
+I0, R0, V = 1, 0, 300
+S0 = N - I0 - R0 - V
+beta, gamma = 0.3, 0.1
+
+days = 160
+t = np.linspace(0, days, days)
+
+S, I, R = [S0], [I0], [V]
+
+for _ in range(1, days):
+    next_S = S[-1] - beta * S[-1] * I[-1] / N
+    next_I = I[-1] + beta * S[-1] * I[-1] / N - gamma * I[-1]
+    next_R = R[-1] + gamma * I[-1]
+    S.append(next_S)
+    I.append(next_I)
+    R.append(next_R)
+
+plt.plot(t, S, label='S')
+plt.plot(t, I, label='I')
+plt.plot(t, R, label='R')
+plt.xlabel('Days')
+plt.ylabel('Number of people')
+plt.legend()
+plt.title('SIR感染モデル')
+plt.show()</code></pre>
 
     <h3>■ 振り返り</h3>
     <ul>
