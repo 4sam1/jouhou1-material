@@ -149,88 +149,58 @@
 
     <h3>■ Pythonで書いてみよう</h3>
     <p>以下のPythonコードでも同様のシミュレーションが可能です。サイトで動作を確認した後、自分でも書いてみましょう。</p>
-    <pre><code>import numpy as np
-import matplotlib.pyplot as plt
+    <pre><code># 必要なライブラリを読み込む
+import numpy as np               # 数値計算用
+import matplotlib.pyplot as plt # グラフ描画用
 
+# 全体の人口
 N = 1000
-I0, R0, V = 1, 0, 300
-S0 = N - I0 - R0 - V
-beta, gamma = 0.3, 0.1
 
+# 初期の状態
+I0 = 1      # 最初に感染している人数
+R0 = 0      # 最初に回復している人数
+V = 300     # ワクチンを接種した人数（最初から免疫あり）
+S0 = N - I0 - R0 - V  # 感受性者の人数（まだ感染しておらず、免疫もない）
+
+# 感染率と回復率（数字を変えると結果が変わる）
+beta = 0.3   # 感染する割合（1人が何人にうつすかの目安）
+gamma = 0.1  # 回復する割合（感染してから回復するまでの速さ）
+
+# シミュレーションする日数
 days = 160
-t = np.linspace(0, days, days)
+t = np.linspace(0, days, days)  # 横軸（時間）を0日目から160日目までつくる
 
-S, I, R = [S0], [I0], [V]
+# 各グループの人数の変化を記録するリスト
+S = [S0]  # 感受性者（まだ感染していない）
+I = [I0]  # 感染者
+R = [V]   # 回復者（ワクチン接種者も含む）
 
+# 日ごとの変化を計算するループ
 for _ in range(1, days):
+    # 次の日の感受性者の数：感染によって減る
     next_S = S[-1] - beta * S[-1] * I[-1] / N
+    # 次の日の感染者の数：感染して増えるが、回復して減る
     next_I = I[-1] + beta * S[-1] * I[-1] / N - gamma * I[-1]
+    # 次の日の回復者の数：感染者が回復して増える
     next_R = R[-1] + gamma * I[-1]
+
+    # 計算結果をリストに追加
     S.append(next_S)
     I.append(next_I)
     R.append(next_R)
 
-plt.plot(t, S, label='S')
-plt.plot(t, I, label='I')
-plt.plot(t, R, label='R')
-plt.xlabel('Days')
-plt.ylabel('Number of people')
-plt.legend()
-plt.title('SIR感染モデル')
-plt.show()</code></pre>
+# 結果をグラフに表示する
+plt.plot(t, S, label='S（感受性者）')
+plt.plot(t, I, label='I（感染者）')
+plt.plot(t, R, label='R（回復者）')
+plt.xlabel('日数')  # 横軸のラベル
+plt.ylabel('人数')  # 縦軸のラベル
+plt.legend()        # 凡例の表示
+plt.title('SIR感染モデルのシミュレーション')  # グラフのタイトル
+plt.show()
+</code></pre>
 
-<h3>■ Pythonコードの解説</h3>
-<p>このコードは「SIRモデル」を使って、感染症の広がり方をシミュレーションします。</p>
 
-<ol>
-  <li><code>import numpy as np</code><br>
-    <strong>NumPy</strong>というライブラリを使って、数の計算を簡単にします。
-  </li>
-  <li><code>import matplotlib.pyplot as plt</code><br>
-    グラフを描くための<strong>matplotlib</strong>というライブラリを読み込みます。
-  </li>
-  <li><code>N = 1000</code><br>
-    全体の人口（1000人）を設定します。
-  </li>
-  <li><code>I0, R0, V = 1, 0, 300</code><br>
-    最初に感染している人（1人）、回復者（0人）、ワクチン接種済の人（300人）を設定します。
-  </li>
-  <li><code>S0 = N - I0 - R0 - V</code><br>
-    感染しておらず、ワクチンも打っていない人の数（感受性者）を計算します。
-  </li>
-  <li><code>beta, gamma = 0.3, 0.1</code><br>
-    感染率（β=0.3）と回復率（γ=0.1）を設定します。
-  </li>
-  <li><code>days = 160</code><br>
-    シミュレーションを行う日数（160日間）を決めます。
-  </li>
-  <li><code>t = np.linspace(0, days, days)</code><br>
-    時間（0日から160日まで）を用意します。
-  </li>
-  <li><code>S, I, R = [S0], [I0], [V]</code><br>
-    初日のS, I, Rの人数をリストに入れて記録します。
-  </li>
-  <li><code>for _ in range(1, days):</code><br>
-    毎日、感染の様子を計算するための繰り返し処理を始めます。
-  </li>
-  <li>その中で：
-    <ul>
-      <li><code>next_S = S[-1] - beta * S[-1] * I[-1] / N</code><br>
-        次の日の「感受性者（S）」を計算します。
-      </li>
-      <li><code>next_I = I[-1] + beta * S[-1] * I[-1] / N - gamma * I[-1]</code><br>
-        次の日の「感染者（I）」を計算します。
-      </li>
-      <li><code>next_R = R[-1] + gamma * I[-1]</code><br>
-        次の日の「回復者（R）」を計算します。
-      </li>
-    </ul>
-  </li>
-  <li>その日ごとのS, I, Rをリストに追加します。</li>
-  <li><code>plt.plot(...) ～ plt.show()</code><br>
-    最後にグラフを描画します。
-  </li>
-</ol>
 
 
     <h3>■ 振り返り</h3>
