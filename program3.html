@@ -80,12 +80,6 @@
     code {
       font-family: monospace;
     }
-    .code-explanation {
-      background: #eaf4fb;
-      border-left: 4px solid #1e57a3;
-      padding: 1rem;
-      margin-bottom: 2rem;
-    }
     footer {
       text-align: center;
       font-size: 0.9rem;
@@ -93,6 +87,7 @@
       margin: 2rem 0;
     }
   </style>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
   <header>
@@ -113,7 +108,47 @@
   </div>
 
   <main>
-    <h2>Pythonコードの解説</h2>
+    <div style="text-align: center; margin: 2rem 0;">
+      <img src="model.png" alt="モデルの例" style="width:100%; max-width:600px; height:auto;">
+    </div>
+
+    <p>私たちの身のまわりでは、感染症の流行やSNSでの情報の広がり、渋滞や天気の変化など、さまざまな現象が起こっています。こうした出来事を「モデル」として表すことで、しくみをシンプルに理解したり、先のことを予測したりすることができます。</p>
+    <p>今回は「SIRモデル」という数理モデルを使って、感染症がどのように広がっていくのかを調べます。このモデルでは、人の集団を「まだ感染していない人（S）」「感染している人（I）」「回復した人（R）」の3つに分けて、その人数の変化を計算していきます。</p>
+    <p>また、プログラミングを使ってモデルの動きをグラフで見える化し、ワクチンを打ったときと打たないときで感染の広がり方にどんな違いが出るのかを体験してみましょう。</p>
+
+    <h3>■ SIRモデルとは？</h3>
+    <ul>
+      <li><strong>S（感受性者）</strong>：まだ感染しておらず、今後感染する可能性がある人たち。</li>
+      <li><strong>I（感染者）</strong>：現在感染していて、他の人にうつす可能性がある人。</li>
+      <li><strong>R（回復者または免疫保持者）</strong>：感染から回復した人や、ワクチンを打って免疫を持っている人。</li>
+    </ul>
+
+    <div style="text-align: center; margin: 2rem 0;">
+      <img src="SIR.png" alt="SIRモデルの分類" style="width:100%; max-width:600px; height:auto;">
+    </div>
+
+    <p>時間が経つにつれて、Sの人がIになり、Iの人がRになっていきます。このような人数の変化を日ごとに計算することで、感染症がどのように広がっていくのかを予測することができます。</p>
+    <p>このモデルの良いところは、「全員の行動を細かく追わなくても、集団全体としての動きが予測できる」という点です。例えば、「ワクチンを300人に打ったらどうなる？」「感染率がもっと高かったら？」といった条件を変えてシミュレーションすることで、感染拡大を防ぐ方法を考えるヒントになります。</p>
+    <p>SIRモデルは、実際の感染症対策や、社会の中のさまざまな仕組みを分析するときにも使われている大切な考え方のひとつです。</p>
+
+    <h3>■ パラメータを設定</h3>
+    <label>人口（N）:</label>
+    <input type="number" id="population" value="1000">
+    <label>初期感染者（I₀）:</label>
+    <input type="number" id="initialInfected" value="1">
+    <label>ワクチン接種数（V）:</label>
+    <input type="number" id="vaccinated" value="300">
+    <label>感染率（β）:</label>
+    <input type="number" id="beta" value="0.3" step="0.01">
+    <label>回復率（γ）:</label>
+    <input type="number" id="gamma" value="0.1" step="0.01">
+    <button onclick="simulate()">シミュレーション開始</button>
+
+    <h3>■ 結果のグラフ</h3>
+    <div id="plot" style="width:100%;height:500px;"></div>
+
+    <h3>■ Pythonで書いてみよう</h3>
+    <p>以下のPythonコードでも同様のシミュレーションが可能です。サイトで動作を確認した後、自分でも書いてみましょう。</p>
     <pre><code>import numpy as np
 import matplotlib.pyplot as plt
 
@@ -144,22 +179,65 @@ plt.legend()
 plt.title('SIR感染モデル')
 plt.show()</code></pre>
 
-    <div class="code-explanation">
-      <h3>このコードの流れ</h3>
-      <ul>
-        <li><strong>1〜4行目:</strong> 必要なライブラリを読み込みます。</li>
-        <li><strong>6〜9行目:</strong> 人数や感染率・回復率などの初期設定をします。</li>
-        <li><strong>11行目:</strong> 日数に対応するx軸（時間）のデータを作ります。</li>
-        <li><strong>13行目:</strong> S, I, R のそれぞれ初期値をリストとして定義します。</li>
-        <li><strong>15〜19行目:</strong> 1日ごとにS, I, Rがどう変化するかを計算し、毎回リストに追加します。</li>
-        <li><strong>21〜27行目:</strong> 最後に、変化の様子をグラフで表示します。</li>
-      </ul>
-    </div>
+    <h3>■ 振り返り</h3>
+    <ul>
+      <li>ワクチン接種の有無によって、感染者の数やピークの時期はどう変わったか？</li>
+      <li>感染率や回復率を変えると、どんな影響が出るか？</li>
+      <li>現実世界でもこのようなモデルが使われている例は？</li>
+    </ul>
   </main>
+
+  <script>
+    function simulate() {
+      const N = parseInt(document.getElementById('population').value);
+      const I0 = parseInt(document.getElementById('initialInfected').value);
+      const V = parseInt(document.getElementById('vaccinated').value);
+      const beta = parseFloat(document.getElementById('beta').value);
+      const gamma = parseFloat(document.getElementById('gamma').value);
+
+      if (isNaN(N) || isNaN(I0) || isNaN(V) || isNaN(beta) || isNaN(gamma)) {
+        alert("すべての数値を正しく入力してください。");
+        return;
+      }
+
+      let S = N - I0 - V;
+      let I = I0;
+      let R = V;
+
+      const days = 160;
+      let S_data = [], I_data = [], R_data = [], t_data = [];
+
+      for (let t = 0; t <= days; t++) {
+        S_data.push(S);
+        I_data.push(I);
+        R_data.push(R);
+        t_data.push(t);
+
+        let dS = -beta * S * I / N;
+        let dI = beta * S * I / N - gamma * I;
+        let dR = gamma * I;
+
+        S += dS;
+        I += dI;
+        R += dR;
+      }
+
+      Plotly.newPlot('plot', [
+        { x: t_data, y: S_data, name: '感受性者（S）', type: 'scatter' },
+        { x: t_data, y: I_data, name: '感染者（I）', type: 'scatter' },
+        { x: t_data, y: R_data, name: '回復者（R）', type: 'scatter' }
+      ], {
+        title: '感染モデルシミュレーション結果',
+        xaxis: { title: 'Days' },
+        yaxis: { title: 'Number of people' },
+        plot_bgcolor: '#ffffff',
+        paper_bgcolor: '#ffffff'
+      });
+    }
+  </script>
 
   <footer>
     <a href="index.html">トップページに戻る</a>
   </footer>
 </body>
 </html>
-
