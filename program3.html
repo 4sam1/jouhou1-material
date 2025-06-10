@@ -195,10 +195,10 @@ for _ in range(1, days):
 plt.plot(t, S, label='S（感受性者）')
 plt.plot(t, I, label='I（感染者）')
 plt.plot(t, R, label='R（回復者）')
-plt.xlabel('日数')  # 横軸のラベル
-plt.ylabel('人数')  # 縦軸のラベル
+plt.xlabel('Days')  # 横軸のラベル
+plt.ylabel('Number of people')  # 縦軸のラベル
 plt.legend()        # 凡例の表示
-plt.title('SIR感染モデルのシミュレーション')  # グラフのタイトル
+plt.title('SIR Model Infection Simulation')  # グラフのタイトル
 plt.show()
 </code></pre>
 
@@ -255,8 +255,8 @@ plt.show()
         { x: t_data, y: R_data, name: '回復者（R）', type: 'scatter' }
       ], {
         title: '感染モデルシミュレーション結果',
-        xaxis: { title: 'Days' },
-        yaxis: { title: 'Number of people' },
+        xaxis: { title: '日数' },
+        yaxis: { title: '人数' },
         plot_bgcolor: '#ffffff',
         paper_bgcolor: '#ffffff'
       });
